@@ -1,0 +1,22 @@
+<div class="card card-spaces">
+  <header class="card-header truncate-long-text">
+    <p class="card-header-title">
+      {{ task.title }}
+    </p>
+  </header>
+  <div class="card-content">
+    <div class="content">
+      {{ task.description }}
+    </div>
+  </div>
+  <footer class="card-footer">
+    <button @click="toggleTaskEnable(task.id)" class="card-footer-item button is-link is-inverted"
+      :disabled="task.isCompleted">{{ task.isEnabled ? 'Disable' : 'Enable' }}</button>
+    <button v-if="task.isEnabled && !task.isCompleted" class="card-footer-item button is-link is-inverted"
+      @click="markAsCompleted(task.id)">
+      Mark as done
+    </button>
+    <button @click="toggleEditModal(task.id)" class="card-footer-item button is-link is-inverted">Edit</button>
+    <button @click="onDeleteTask(task.id)" class="card-footer-item button is-link is-inverted">Delete</button>
+  </footer>
+</div>

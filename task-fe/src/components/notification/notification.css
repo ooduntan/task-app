@@ -1,0 +1,23 @@
+.notification {
+  max-width: 300px;
+  position: absolute;
+  top: -2%;
+  right: -50%;
+}
+
+.show-notification {
+  right: -8%;
+  animation: animate-notification .7s ease-in-out;
+}
+
+@keyframes animate-notification {
+  0% {
+    right: -50%;
+  }
+  1% {
+    right: -30%;
+  }
+  100% {
+    right: -8%;
+  }
+}

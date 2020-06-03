@@ -1,0 +1,28 @@
+@media screen and (max-width: 768px) {
+  div.card-spaces {
+    /* max-width: 100%; */
+  }
+}
+
+.card-spaces {
+  border: 1px solid #ababab;
+  margin: 21px 0;
+  max-width: 342px;
+}
+
+.card-content {
+  text-align: left;
+}
+
+.truncate-long-text {
+  display: flex;
+}
+
+.truncate-long-text > p {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+  text-align: left;
+}

@@ -1,0 +1,14 @@
+@media screen and (max-width: 768px) {
+  .container.task-wrapper {
+    display: block;
+  }
+
+}
+
+.container {
+  margin-top: 20px;
+}
+
+.task-group {
+  min-height: 78vh;
+}

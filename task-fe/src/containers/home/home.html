@@ -1,0 +1,48 @@
+<div>
+  <NavBar :updateTaskList="fetchTaskList" />
+  <div class="container">
+  </div>
+  <div class="container task-group">
+    <div class="columns is-1">
+      <div class="column">
+        <p>Disabled Tasks</p>
+        <TaskCard v-for="(disabledTask, index) in disabledTasks" :key="disabledTask.id" :task="disabledTask"
+          :toggleTaskEnable="toggleTaskEnable" :toggleEditModal="toggleEditModal" :onDeleteTask="deleteTask" />
+      </div>
+
+      <div class="column">
+        <p>Enabled Tasks</p>
+        <TaskCard v-for="(enabledTask, index) in enabledTasks" :key="enabledTask.id" :task="enabledTask"
+          :onDeleteTask="deleteTask" :toggleEditModal="toggleEditModal" :toggleTaskEnable="toggleTaskEnable"
+          :markAsCompleted="markAsCompleted" />
+      </div>
+
+      <div class="column">
+        <p>Completed Tasks</p>
+        <TaskCard v-for="(completedTask, index) in completedTasks" :key="completedTask.id" :task="completedTask"
+          :onDeleteTask="deleteTask" :toggleEditModal="toggleEditModal" />
+      </div>
+    </div>
+  </div>
+  <form @submit.prevent="validateAndSubmit">
+    <Modal :savingChanges="savingFrom" title="Edit task" :isActive="modalState" :toggleModal="toggleEditModal">
+      <div slot="modal-content">
+        <p v-if="formGroupError" class="info has-text-danger has-text-centered">{{ formGroupError }} </p>
+        <TextField v-model.trim="$v.form.title.$model" label="Title" placeholder="Task title"
+          errorMessage="Title cannot be empty or more than 70 characters" :hasError="$v.form.title.$error" />
+        <TextArea v-model.trim="$v.form.description.$model" label="Description" placeholder="Task description"
+          :hasError="$v.form.description.$error" errorMessage="Description cannot be empty" />
+
+        <CheckBox v-model="$v.form.isEnabled.$model" label="Enable task" />
+      </div>
+    </Modal>
+  </form>
+  <div class="container">
+    <Paginator :numberPerPage="take" :currentPage="currentPage" :totalPages="totalTask" />
+  </div>
+  <PageLoader :isActive="loading" />
+  <Notification
+    :message="notificationMessage"
+    :closeNotification="closeNotification"
+  />
+</div>

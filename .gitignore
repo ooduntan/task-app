@@ -1,0 +1,4 @@
+task-be/node_modules/*
+task-fe/node_modules/*
+task-be/data/*
+data/

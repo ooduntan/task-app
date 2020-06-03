@@ -1,0 +1,13 @@
+<div class="field">
+  <label class="label">{{ label }}</label>
+  <div class="control">
+    <input
+      class="input"
+      :class="{ 'is-danger': hasError }"
+      v-bind="$attrs"
+      type="text"
+      @input="$emit('input', $event.target.value)"
+    />
+  </div>
+  <p v-if="hasError" class="help is-danger">{{ errorMessage }} </p>
+</div>

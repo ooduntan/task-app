@@ -1,0 +1,53 @@
+<div>
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <router-link class="navbar-item" to="/">
+        <strong>Task Manager</strong>
+      </router-link>
+
+      <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
+        data-target="navbarBasicExample">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+
+    <div id="navbarBasicExample" class="navbar-menu">
+      <div class="navbar-start">
+        <router-link class="navbar-item" to="/">
+          Home
+        </router-link>
+      </div>
+
+      <div class="navbar-end">
+        <div class="navbar-item">
+          <div class="buttons">
+            <button @click="toggleModal" type="button" class="button is-primary">Add new task</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <form @submit.prevent="createNewTask">
+    <Modal :savingChanges="creatingTask" title="Create a new task" :isActive="modalState" :toggleModal="toggleModal">
+      <div slot="modal-content">
+        <p v-if="formError" class="info has-text-danger has-text-centered">{{ formError }} </p>
+        <TextField
+          v-model.trim="$v.form.title.$model"
+          label="Title" placeholder="Task title"
+          errorMessage="Title cannot be empty or more than 70 characters"
+          :hasError="$v.form.title.$error"
+        />
+        <TextArea
+          v-model.trim="$v.form.description.$model"
+          label="Description"
+          placeholder="Task description"
+          :hasError="$v.form.description.$error"
+          errorMessage="Description cannot be empty"
+        />
+        <CheckBox v-model="$v.form.isEnabled.$model" label="Enable task" />
+      </div>
+    </Modal>
+  </form>
+</div>

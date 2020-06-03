@@ -1,0 +1,18 @@
+<div class="modal" :class="[isActive ? 'is-active' : '']">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">{{ title }}</p>
+      <button @click="toggleModal" class="delete" aria-label="close"></button>
+    </header>
+    <section class="modal-card-body">
+      <slot name="modal-content">
+        <p>Empty slot</p>
+      </slot>
+    </section>
+    <footer class="modal-card-foot">
+      <button class="button is-success" :class="{'is-loading': savingChanges}">Save changes</button>
+      <button @click="toggleModal" class="button">Cancel</button>
+    </footer>
+  </div>
+</div>

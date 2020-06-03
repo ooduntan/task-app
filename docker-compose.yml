@@ -1,0 +1,62 @@
+version: '3.7'
+
+services:
+  task-service:
+    build:
+      context: ./task-be
+      dockerfile: Dockerfile
+      args:
+        - NODE_ENV=development
+    environment:
+      - NODE_ENV=development
+      - PORT=3000
+      - DB_HOST=task-service-db
+      - DB_PORT=5432
+      - DB_PASSWORD=passw0rd
+      - DB_USERNAME=root
+      - DB_NAME=taskdb
+    volumes:
+      - /opt/app/node_modules
+    networks:
+      - task-network
+    ports:
+      - 8080:3000
+    depends_on:
+      - task-service-db
+
+  task-service_fe:
+    build:
+      context: ./task-fe
+      dockerfile: Dockerfile
+      args:
+        - NODE_ENV=development
+    environment:
+      - VUE_APP_API_BASE_URL=http://localhost
+      - VUE_APP_API_PORT=8080
+      - PORT=8081
+    volumes:
+      - /opt/app/node_modules
+    networks:
+      - task-network
+    ports:
+      - 8081:8081
+    depends_on:
+      - task-service
+
+  task-service-db:
+    image: postgres:12-alpine
+    ports:
+      - 5436:5432
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
+    restart: always
+    networks:
+      - task-network
+    environment:
+      - POSTGRES_DB=taskdb
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=passw0rd
+
+networks:
+  task-network:
+    driver: bridge

@@ -1,0 +1,14 @@
+<div class="field">
+  <div class="control">
+    <label class="checkbox">
+      <input
+        v-bind="$attrs"
+        type="checkbox"
+        name="testField"
+        v-bind:checked="checked"
+        v-on:change="$emit('change', $event.target.checked)"
+      />
+      {{ label }}
+    </label>
+  </div>
+</div>
